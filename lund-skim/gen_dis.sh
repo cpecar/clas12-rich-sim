@@ -2,11 +2,12 @@
 echo $1
 LAST=$(( $1 * 50 ))
 FIRST=$(( ($1 - 1) * 50 ))
-
+PREFIX=clasdis_10k_targetshiftm3cm_hadInRICH_p1GeV
 for i in $(seq $FIRST $LAST)
 do
     echo $i
-    clasdis --docker --trig 25000 --zpos -3
-    mv clasdis.dat clasdis_25k_targetshiftm3cm_pcut2p5_eleEvKept_$i.dat
-    python skimLund.py clasdis_25k_targetshiftm3cm_pcut2p5_eleEvKept_$i.dat sector41skim_clasdis_25k_p2p5_eleEvKept_$i.dat
+    clasdis --docker --trig 10000 --zpos -3
+    mv clasdis.dat ${PREFIX}_$i.dat
+    python skimLund.py ${PREFIX}_$i.dat sector41skim_${PREFIX}_$i.dat
+    rm ${PREFIX}_$i.dat
 done
