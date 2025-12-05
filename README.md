@@ -8,7 +8,7 @@ Running gemc locally/on ifarm then requires
 1. [clas12-config](https://github.com/JeffersonLab/clas12-config#) to load the correct gcards and coatjava yaml files
 2. [clas12Tags](https://github.com/gemc/clas12Tags) to load the already-built CLAS12 geometry (tag 5.12)
 
-In my setup on Duke's cluster, I would first unpack/clone ``clas12Tags``, then clone ``clas12-config`` within the clas12Tags directory.
+In my setup on Duke's cluster, I would first unpack/clone ``clas12Tags``, then clone ``clas12-config`` within the clas12Tags directory for ease of use with the relative paths as they are set in the gemc gcards.
 
 ## Running the simulation
 Running gemc and coatjava should now be pretty straightforward. On ifarm, you can use the already built gemc/5.12 executable. The example slurm job submission scripts in this directory will give an example of running gemc with a given lund file, and show exactly how I generated the most recent large simulated dataset used for calibration. 
