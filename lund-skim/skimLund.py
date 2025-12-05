@@ -9,7 +9,7 @@ import math
 # in sector 4/1
 ###
 
-# define something to format lines
+# functions to format lines
 # because we have to redefine indices etc.
 def formatHeader(linearr, npart):
     returnstr = "          {} {} {} {} {} {} {} {} {} {} \n".format(str(npart),linearr[1], linearr[2],linearr[3],
@@ -38,8 +38,32 @@ def phiCut(phi,sectorlist):
         if sector==1:
             cuts.append(phiCut1(phi))
     return np.any(np.array(cuts))
+
+# momentum cut on approximate Cherenkov thresholds for hadrons
+def pCutThreshold(p,pid):
+    if abs(pid) == 211:
+        if p >= 1.25:
+            return True
+        else:
+            return False
+    elif abs(pid) == 321:
+        if p >= 1.542:
+            return True
+        else:
+            return False
+    elif abs(pid) == 2212:
+        if p > 2.94:
+            return True
+        else:
+            return False
+    elif abs(pid) == 11:
+        return True
+    return False
+    
+        
 sectors = [4,1]
-keepEleEvents = True
+P_MIN = 1.0
+keepEleEvents = False
 ncurrent = 0
 partskept = []
 hadkept = 0
@@ -74,8 +98,9 @@ with open(sys.argv[1]) as file:
                 pz = float(linearr[8])
                 p = ROOT.TVector3(px,py,pz)
                 phi = (p.Phi())*180/math.pi
-                # if in sector 4 (CHECK THIS)                
-                if phiCut(phi,sectors) and p.Mag() >= 2.5:
+                # if in selected sectors and passes momentum cut
+                #if phiCut(phi,sectors) and pCutThreshold(p.Mag(),pid):
+                if phiCut(phi,sectors) and p.Mag() > P_MIN:
                     partskept.append(linearr)
                     hadkept += 1
             if pid==11 and parent == 1:
@@ -90,7 +115,7 @@ with open(sys.argv[1]) as file:
                 if phiCut(phi,sectors):
                     eleInRich = True
             ncurrent+=1                
-        if ncurrent == Ninev and (hadkept > 0 or (eleInRich and keepEleEvents)):
+        if ncurrent == Ninev and (hadkept > 0 or (eleInRich and keepEleEvents)):        
             with open(outfilename, 'a') as outfile:
                 outfile.write(formatHeader(headerline,len(partskept)))
                 currentindex = 1 
