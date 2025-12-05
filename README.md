@@ -11,9 +11,13 @@ Running gemc locally/on ifarm then requires
 In my setup on Duke's cluster, I would first unpack/clone ``clas12Tags``, then clone ``clas12-config`` within the clas12Tags directory for ease of use with the relative paths as they are set in the gemc gcards.
 
 ## Running the simulation
-Running gemc and coatjava should now be pretty straightforward. On ifarm, you can use the already built gemc/5.12 executable. The example slurm job submission scripts in this directory will give an example of running gemc with a given lund file, and show exactly how I generated the most recent large simulated dataset used for calibration. 
+Running gemc and coatjava should now be pretty straightforward (previously the RICH required a lot more checking of geometry and configuring the ccdb). On ifarm, you can use the already built gemc/5.12 executable. The example slurm job submission scripts in this directory will give an example of running gemc with a given lund file, and show exactly how I generated the most recent large simulated dataset used for calibration. 
 
-If you want to filter for only a specific set of needed output banks (recommended), you can follow the instructions in the coatjava yaml files (setting up a directory with links to the .json bank definition files).
+If you want to filter for only a specific set of needed output banks (recommended), you can follow the [instructions in the coatjava yaml files](https://github.com/JeffersonLab/clas12-config/blob/584b0c80568fd43e2c8b7b3bd1c9ec99964548a1/coatjava/11.1.0/rga_fall2018.yaml#L72) (setting up a directory with links to the .json bank definition files).
 
-## Skimmed clasdis files
+## Skimming lund files
 I placed my simple python script for skimming lund files for the scattered electron (always kept for timing) and hadrons in sectors 4/1 in the ``lundSkim/`` directory. It also includes an option for keeping events with the scattered electron in the RICH.
+
+## Some other notes
+- The slurm script I placed here for running gemc and coatjava is configured for Duke's cluster (should only require changing account and partition names)
+- If anyone wants instructions for running in a container on a non-ifarm cluster, I am happy to provide it. I tried to write this up for use on ifarm since it is the most straightforward.
