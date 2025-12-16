@@ -15,8 +15,12 @@ Running gemc and coatjava should now be pretty straightforward (previously the R
 
 If you want to filter for only a specific set of needed output banks (recommended), you can follow the [instructions in the coatjava yaml files](https://github.com/JeffersonLab/clas12-config/blob/584b0c80568fd43e2c8b7b3bd1c9ec99964548a1/coatjava/11.1.0/rga_fall2018.yaml#L72) (setting up a directory with links to the .json bank definition files).
 
-## Skimming lund files
+## Running clasdis and skimming lund files
 I placed my simple python script for skimming lund files for the scattered electron (always kept for timing) and hadrons in sectors 4/1 in the ``lundSkim/`` directory. It also includes an option for keeping events with the scattered electron in the RICH.
+
+To run ``clasdis`` on ifarm, first ``module load mcgen``. Then, ``clasdis`` can be run as
+``clasdis --docker --trig 10000 --zpos -3``,
+which will produce a file ``clasdis.dat`` with the 10000 lund-formatted events, and the vertex z position at -3cm. The directory ``lund-skim`` in this repository demonstrates how I have been producing these files with ``clasdis`` and skimming them for selected events. 
 
 ## Some other notes
 - The slurm script I placed here for running gemc and coatjava is configured for Duke's cluster (should only require changing account and partition names)
