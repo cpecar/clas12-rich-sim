@@ -18,8 +18,10 @@ If you want to filter for only a specific set of needed output banks (recommende
 ## Running clasdis and skimming lund files
 I placed my simple python script for skimming lund files for the scattered electron (always kept for timing) and hadrons in sectors 4/1 in the ``lundSkim/`` directory. It also includes an option for keeping events with the scattered electron in the RICH.
 
-To run ``clasdis`` on ifarm, first ``module load mcgen``. Then, ``clasdis`` can be run as
+To run ``clasdis`` on ifarm, first ``module load mcgen``. Then, ``clasdis`` can be run like, for example, 
+
 ``clasdis --docker --trig 10000 --zpos -3``,
+
 which will produce a file ``clasdis.dat`` with the 10000 lund-formatted events, and the vertex z position at -3cm. The directory ``lund-skim`` in this repository demonstrates how I have been producing these files with ``clasdis`` and skimming them for selected events. 
 
 ## Some other notes
